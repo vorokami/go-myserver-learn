@@ -10,6 +10,10 @@ func main() {
 
 	router.Use(gin.Recovery(), gin.Logger())
 
+	router.NoRoute(func(c *gin.Context) {
+		c.JSON(http.StatusNotFound, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
+	})
+
 	router.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/ping")
 	})
